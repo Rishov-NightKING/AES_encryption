@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="38b4f244-322c-456e-a28b-94141c0a5664" name="Default Changelist" comment="" />
+    <list default="true" id="38b4f244-322c-456e-a28b-94141c0a5664" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AES_encryption.py" beforeDir="false" afterPath="$PROJECT_DIR$/AES_encryption.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,7 +17,11 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1pTfGIXvV0HAuwIDYGZZLcOi4Fu" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -110,7 +117,8 @@
       <option name="presentableId" value="Default" />
       <updated>1615211903903</updated>
       <workItem from="1615211934765" duration="640000" />
-      <workItem from="1615215652334" duration="25896000" />
+      <workItem from="1615215652334" duration="26358000" />
+      <workItem from="1615347515145" duration="5837000" />
     </task>
     <servers />
   </component>
@@ -126,37 +134,37 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="184" y="109" width="1071" height="702" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1440.900@0.0.1440.900" timestamp="1615215947695" />
-    <state width="1398" height="325" key="GridCell.Tab.0.bottom" timestamp="1615332573513">
+    <state width="1398" height="342" key="GridCell.Tab.0.bottom" timestamp="1615357658734">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="325" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1615332573513" />
-    <state width="1398" height="325" key="GridCell.Tab.0.center" timestamp="1615332573511">
+    <state width="1398" height="342" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1615357658734" />
+    <state width="1398" height="342" key="GridCell.Tab.0.center" timestamp="1615357658733">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="325" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1615332573511" />
-    <state width="1398" height="325" key="GridCell.Tab.0.left" timestamp="1615332573510">
+    <state width="1398" height="342" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1615357658733" />
+    <state width="1398" height="342" key="GridCell.Tab.0.left" timestamp="1615357658732">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="325" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1615332573510" />
-    <state width="1398" height="325" key="GridCell.Tab.0.right" timestamp="1615332573512">
+    <state width="1398" height="342" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1615357658732" />
+    <state width="1398" height="342" key="GridCell.Tab.0.right" timestamp="1615357658733">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="325" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1615332573512" />
+    <state width="1398" height="342" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1615357658733" />
     <state x="229" y="86" key="SettingsEditor" timestamp="1615216683177">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="229" y="86" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1615216683177" />
-    <state x="397" y="279" key="com.intellij.ide.util.TipDialog" timestamp="1615215652634">
+    <state x="397" y="279" key="com.intellij.ide.util.TipDialog" timestamp="1615347515769">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="397" y="279" key="com.intellij.ide.util.TipDialog/0.0.1440.900@0.0.1440.900" timestamp="1615215652634" />
+    <state x="397" y="279" key="com.intellij.ide.util.TipDialog/0.0.1440.900@0.0.1440.900" timestamp="1615347515769" />
     <state x="385" y="196" width="670" height="676" key="search.everywhere.popup" timestamp="1615325882522">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="385" y="196" width="670" height="676" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1615325882522" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/AES_encryption$AES_encryption.coverage" NAME="AES_encryption Coverage Results" MODIFIED="1615332573501" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/AES_encryption$AES_encryption.coverage" NAME="AES_encryption Coverage Results" MODIFIED="1615357658719" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/AES_encryption$demo.coverage" NAME="demo Coverage Results" MODIFIED="1615330771448" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

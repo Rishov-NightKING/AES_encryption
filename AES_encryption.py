@@ -15,6 +15,7 @@ Install The BitVector Library
 """Tables"""
 
 from BitVector import *
+import time
 
 Sbox = (
     0x63, 0x7C, 0x77, 0x7B, 0xF2, 0x6B, 0x6F, 0xC5, 0x30, 0x01, 0x67, 0x2B, 0xFE, 0xD7, 0xAB, 0x76,
@@ -68,9 +69,9 @@ InvMixer = [
     [BitVector(hexstring="0B"), BitVector(hexstring="0D"), BitVector(hexstring="09"), BitVector(hexstring="0E")]
 ]
 
-
 KEY_LENGTH = 16
-round_constant = [ 1, 00, 00, 00]
+round_constant = [1, 00, 00, 00]
+
 
 # FUNCTIONS
 def operationOnKey(strkey):
@@ -84,12 +85,13 @@ def operationOnKey(strkey):
 
     return strkey
 
+
 def operationOnPlainText(text):
-    if len(text) %16 != 0:
-        temp = 16 - len(text)%16
+    if len(text) % 16 != 0:
+        temp = 16 - len(text) % 16
         for i in range(temp):
             text += " "
-    #handle text blocks
+    # handle text blocks
     return text
 
 
@@ -99,11 +101,11 @@ def shiftRows(s):
     s[0][2], s[1][2], s[2][2], s[3][2] = s[2][2], s[3][2], s[0][2], s[1][2]
     s[0][3], s[1][3], s[2][3], s[3][3] = s[3][3], s[0][3], s[1][3], s[2][3]
 
+
 def inverseShiftRows(s):
     s[0][1], s[1][1], s[2][1], s[3][1] = s[3][1], s[0][1], s[1][1], s[2][1]
     s[0][2], s[1][2], s[2][2], s[3][2] = s[2][2], s[3][2], s[0][2], s[1][2]
     s[0][3], s[1][3], s[2][3], s[3][3] = s[1][3], s[2][3], s[3][3], s[0][3]
-
 
 
 def circularleftshift(li):
@@ -111,16 +113,17 @@ def circularleftshift(li):
 
     return li
 
+
 def printlistinHEX(li):
+    print("[ In HEX ]:")
     count = 0
     for i in li:
         for j in i:
-            print(hex(j),end=" ")
+            print(hex(j), end=" ")
             count += 1
             if count % 16 == 0:
                 print()
     print()
-    return
 
 
 def byteSubstitution(li):
@@ -130,18 +133,22 @@ def byteSubstitution(li):
     return li
 
 
-def xorlist(li1,li2):
+def inverseByteSubstitution(li):
+    for i in range(len(li)):
+        li[i] = InvSbox[li[i]]
 
+    return li
+
+
+def xorlist(li1, li2):
     return [a ^ b for a, b in zip(li1, li2)]
 
 
-
 def updateRoundConstant():
-    if round_constant[0] < 128: #80(hex)
+    if round_constant[0] < 128:  # 80(hex)
         round_constant[0] *= 2
     elif round_constant[0] >= 128:
-        round_constant[0] = 2*round_constant[0] ^ 283 # 11B(hex)
-
+        round_constant[0] = 2 * round_constant[0] ^ 283  # 11B(hex)
 
 
 # AES_modulus = BitVector(bitstring='100011011')
@@ -160,36 +167,72 @@ def mixColumn(matrix):
     return temp
 
 
-# CODE
+def inverseMixColumn(matrix):
+    temp = [[0, 0, 0, 0] for i in range(4)]
+    for i in range(4):
+        for j in range(4):
+            for k in range(4):
+                AES_modulus = BitVector(bitstring='100011011')
+                temp[j][i] ^= InvMixer[i][k].gf_multiply_modular(BitVector(intVal=matrix[j][k]), AES_modulus, 8).int_val()
+    return temp
 
-# AES_SCHEDULE_START #################################################
-#key = input("Enter Key: ")
-key = "Thats my Kung Fu"
-modifiedkey = operationOnKey(key)
-print("Key in English:\n" + modifiedkey + " [ In ASCII ]")
-print()
 
-#plaintext = input("Enter plaintext: ")
-plaintext = "Two One Nine Two"
-plaintext = operationOnPlainText(plaintext)
-print("Plaintext in English:\n" + plaintext + " [ In ASCII ]")
-print()
+def AES_Schedule():
+    # round (1 - 10)
+    for round in range(1, 11):
+        # circular byte left shift
+        temp = circularleftshift(words[round * 4 - 1].copy())
+
+        # Byte Substitution (S-Box):
+        temp = byteSubstitution(temp)
+
+        # Adding round constant
+        temp = xorlist(temp.copy(), round_constant.copy())
+        updateRoundConstant()
+
+        firstword = xorlist(temp.copy(), words[round * 4 - 4].copy())
+        words.append(firstword)
+
+        secondword = xorlist(words[round * 4].copy(), words[round * 4 - 3].copy())
+        words.append(secondword)
+
+        thirdword = xorlist(words[round * 4 + 1].copy(), words[round * 4 - 2].copy())
+        words.append(thirdword)
+
+        fourthword = xorlist(words[round * 4 + 2].copy(), words[round * 4 - 1].copy())
+        words.append(fourthword)
+
+    # end_for_loop
+
+
+# CODE MAIN FUNCTION
 
 words = [[] for i in range(4)]
 textmatrix = [[] for i in range(4)]
 j = 0
 count = 0
 
+# key = input("Enter Key: ")
+key = "Thats my Kung Fu"
+modifiedkey = operationOnKey(key)
+print("Key in English:\n" + modifiedkey + " [ In ASCII ]")
+
 # KEY_MATRIX_GENERATE
 for i in modifiedkey:
     # s.append(i)
-    #ord() gives ascii value
+    # ord() gives ascii value
     words[j].append(ord(i))
     count += 1
     if count % 4 == 0:
         j += 1
 
+printlistinHEX(words)
 # end_for_loop
+
+# plaintext = input("Enter plaintext: ")
+plaintext = "Two One Nine Two"
+plaintext = operationOnPlainText(plaintext)
+print("Plaintext in English:\n" + plaintext + " [ In ASCII ]")
 
 # PLAINTEXT MATRIX GENERATE
 j = 0
@@ -199,57 +242,37 @@ for i in plaintext:
     count += 1
     if count % 4 == 0:
         j += 1
-
-#printlistinHEX(textmatrix)
+print("Input plaintext hex:")
+printlistinHEX(textmatrix)
 # end
 
-#round (1 - 10)
-for round in range(1,11):
-    # circular byte left shift
-    temp = circularleftshift(words[round*4-1].copy())
 
-    # Byte Substitution (S-Box):
-    temp = byteSubstitution(temp)
+aes_start_time = time.time()
 
-    # Adding round constant
-    temp = xorlist(temp.copy(), round_constant.copy())
-    updateRoundConstant()
+AES_Schedule()
 
-    firstword = xorlist(temp.copy(), words[round*4-4].copy())
-    words.append(firstword)
+aes_end_time = time.time()
 
-
-
-    secondword = xorlist(words[round * 4].copy(), words[round*4-3].copy())
-    words.append(secondword)
-
-    thirdword = xorlist(words[round * 4 + 1].copy(), words[round * 4 - 2].copy())
-    words.append(thirdword)
-
-    fourthword = xorlist(words[round * 4 + 2].copy(), words[round * 4 - 1].copy())
-    words.append(fourthword)
-
-# end_for_loop
-
-
-#printlistinHEX(words)
+aes_time = aes_end_time - aes_start_time
+# printlistinHEX(words)
 
 
 # AES_SCHEDULE_END #################################################
 
 
-
 # ENCRYPTION_CODE_START #################################################
+
+encryption_start_time = time.time()
 
 # INITIALIZE ADD_ROUND_KEY(PLAINTEXT XOR ROUND_KEY_0)
 stateMatrix = [[] for i in range(4)]
 for i in range(4):
     stateMatrix[i] = xorlist(textmatrix[i].copy(), words[i].copy())
 
-#printlistinHEX(stateMatrix)
+# printlistinHEX(stateMatrix)
 
 # ROUND(1-9)
-for round in range(1,10):
+for round in range(1, 10):
     # Substitution Bytes
     for i in range(4):
         byteSubstitution(stateMatrix[i])
@@ -278,18 +301,66 @@ round = 10
 for i in range(4):
     stateMatrix[i] = xorlist(stateMatrix[i].copy(), words[round * 4 + i].copy())
 
-print("CipherText: ")
+encryption_end_time = time.time()
+encryption_time = encryption_end_time - encryption_start_time
+
+print("CipherText: ")  # stateMatrix is our cipher
 printlistinHEX(stateMatrix)
 # ENCRYPTION_CODE_END #################################################
 
 
+# DECRYPTION_CODE_START #################################################
+
+decryption_start_time = time.time()
+
+# ciphertext + roundkey w(40,43) initialization
+ciphertextmatrix = stateMatrix.copy()
+for i in range(4):
+    ciphertextmatrix[i] = xorlist(ciphertextmatrix[i].copy(), words[40 + i].copy())
+# printlistinHEX(ciphertextmatrix)
+
+for round in range(9, 0, -1):
+    # Inverse shift row
+    inverseShiftRows(ciphertextmatrix)
+
+    # Inverse sub bytes
+    for i in range(4):
+        inverseByteSubstitution(ciphertextmatrix[i])
+
+    # Add round key
+    for i in range(4):
+        ciphertextmatrix[i] = xorlist(ciphertextmatrix[i].copy(), words[round * 4 + i].copy())
+
+    # Inverse mix cols
+    ciphertextmatrix = inverseMixColumn(ciphertextmatrix)
+
+    # printlistinHEX(ciphertextmatrix)
+
+# end outer for loop
+# Inverse shift row
+inverseShiftRows(ciphertextmatrix)
+
+# Inverse sub bytes
+for i in range(4):
+    inverseByteSubstitution(ciphertextmatrix[i])
+
+# Add round key
+for i in range(4):
+    ciphertextmatrix[i] = xorlist(ciphertextmatrix[i].copy(), words[i].copy())  # w(0,3)
+
+decryption_end_time = time.time()
+decryption_time = decryption_end_time - decryption_start_time
+
+print("After decryption plaintext:")
+printlistinHEX(ciphertextmatrix)
+# DECRYPTION_CODE_END #################################################
 
 
-
-
-
-
-
+# EXECUTION TIME
+print("Execution Time")
+print("Key Scheduling: {} seconds".format(aes_time))
+print("Encryption Time: {} seconds".format(encryption_time))
+print("Decryption Time:: {} seconds".format(decryption_time))
 
 # b = BitVector(hexstring="63")
 # int_val = b.intValue()
