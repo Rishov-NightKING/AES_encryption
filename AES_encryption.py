@@ -204,6 +204,84 @@ def AES_Schedule():
 
     # end_for_loop
 
+def Encryption(textmatrix):
+    # INITIALIZE ADD_ROUND_KEY(PLAINTEXT XOR ROUND_KEY_0)
+    stateMatrix = [[] for i in range(4)]
+    for i in range(4):
+        stateMatrix[i] = xorlist(textmatrix[i].copy(), words[i].copy())
+
+    # printlistinHEX(stateMatrix)
+
+    # ROUND(1-9)
+    for round in range(1, 10):
+        # Substitution Bytes
+        for i in range(4):
+            byteSubstitution(stateMatrix[i])
+        # Shift Row
+        shiftRows(stateMatrix)
+
+        # Mix Column
+        stateMatrix = mixColumn(stateMatrix)
+
+        # Add Roundkey
+        for i in range(4):
+            stateMatrix[i] = xorlist(stateMatrix[i].copy(), words[round * 4 + i].copy())
+
+        # printlistinHEX(stateMatrix)
+    # outer_for_loop_end
+
+    # ROUND 10
+    # Substitution Bytes
+    for i in range(4):
+        byteSubstitution(stateMatrix[i])
+    # Shift Row
+    shiftRows(stateMatrix)
+
+    # Add Roundkey
+    round = 10
+    for i in range(4):
+        stateMatrix[i] = xorlist(stateMatrix[i].copy(), words[round * 4 + i].copy())
+
+    return stateMatrix
+
+
+def Decryption(ciphertextmatrix):
+    # ciphertext + roundkey w(40,43) initialization
+    # ciphertextmatrix = stateMatrix.copy()
+    for i in range(4):
+        ciphertextmatrix[i] = xorlist(ciphertextmatrix[i].copy(), words[40 + i].copy())
+    # printlistinHEX(ciphertextmatrix)
+
+    for round in range(9, 0, -1):
+        # Inverse shift row
+        inverseShiftRows(ciphertextmatrix)
+
+        # Inverse sub bytes
+        for i in range(4):
+            inverseByteSubstitution(ciphertextmatrix[i])
+
+        # Add round key
+        for i in range(4):
+            ciphertextmatrix[i] = xorlist(ciphertextmatrix[i].copy(), words[round * 4 + i].copy())
+
+        # Inverse mix cols
+        ciphertextmatrix = inverseMixColumn(ciphertextmatrix)
+
+        # printlistinHEX(ciphertextmatrix)
+
+    # end outer for loop
+    # Inverse shift row
+    inverseShiftRows(ciphertextmatrix)
+
+    # Inverse sub bytes
+    for i in range(4):
+        inverseByteSubstitution(ciphertextmatrix[i])
+
+    # Add round key
+    for i in range(4):
+        ciphertextmatrix[i] = xorlist(ciphertextmatrix[i].copy(), words[i].copy())  # w(0,3)
+
+    return ciphertextmatrix
 
 # CODE MAIN FUNCTION
 
@@ -264,48 +342,13 @@ aes_time = aes_end_time - aes_start_time
 
 encryption_start_time = time.time()
 
-# INITIALIZE ADD_ROUND_KEY(PLAINTEXT XOR ROUND_KEY_0)
-stateMatrix = [[] for i in range(4)]
-for i in range(4):
-    stateMatrix[i] = xorlist(textmatrix[i].copy(), words[i].copy())
-
-# printlistinHEX(stateMatrix)
-
-# ROUND(1-9)
-for round in range(1, 10):
-    # Substitution Bytes
-    for i in range(4):
-        byteSubstitution(stateMatrix[i])
-    # Shift Row
-    shiftRows(stateMatrix)
-
-    # Mix Column
-    stateMatrix = mixColumn(stateMatrix)
-
-    # Add Roundkey
-    for i in range(4):
-        stateMatrix[i] = xorlist(stateMatrix[i].copy(), words[round * 4 + i].copy())
-
-    # printlistinHEX(stateMatrix)
-# outer_for_loop_end
-
-# ROUND 10
-# Substitution Bytes
-for i in range(4):
-    byteSubstitution(stateMatrix[i])
-# Shift Row
-shiftRows(stateMatrix)
-
-# Add Roundkey
-round = 10
-for i in range(4):
-    stateMatrix[i] = xorlist(stateMatrix[i].copy(), words[round * 4 + i].copy())
+ciphertextmatrix = Encryption(textmatrix.copy())
 
 encryption_end_time = time.time()
 encryption_time = encryption_end_time - encryption_start_time
 
 print("CipherText: ")  # stateMatrix is our cipher
-printlistinHEX(stateMatrix)
+printlistinHEX(ciphertextmatrix)
 # ENCRYPTION_CODE_END #################################################
 
 
@@ -313,46 +356,13 @@ printlistinHEX(stateMatrix)
 
 decryption_start_time = time.time()
 
-# ciphertext + roundkey w(40,43) initialization
-ciphertextmatrix = stateMatrix.copy()
-for i in range(4):
-    ciphertextmatrix[i] = xorlist(ciphertextmatrix[i].copy(), words[40 + i].copy())
-# printlistinHEX(ciphertextmatrix)
-
-for round in range(9, 0, -1):
-    # Inverse shift row
-    inverseShiftRows(ciphertextmatrix)
-
-    # Inverse sub bytes
-    for i in range(4):
-        inverseByteSubstitution(ciphertextmatrix[i])
-
-    # Add round key
-    for i in range(4):
-        ciphertextmatrix[i] = xorlist(ciphertextmatrix[i].copy(), words[round * 4 + i].copy())
-
-    # Inverse mix cols
-    ciphertextmatrix = inverseMixColumn(ciphertextmatrix)
-
-    # printlistinHEX(ciphertextmatrix)
-
-# end outer for loop
-# Inverse shift row
-inverseShiftRows(ciphertextmatrix)
-
-# Inverse sub bytes
-for i in range(4):
-    inverseByteSubstitution(ciphertextmatrix[i])
-
-# Add round key
-for i in range(4):
-    ciphertextmatrix[i] = xorlist(ciphertextmatrix[i].copy(), words[i].copy())  # w(0,3)
+decryptedtextmatrix = Decryption(ciphertextmatrix.copy())
 
 decryption_end_time = time.time()
 decryption_time = decryption_end_time - decryption_start_time
 
 print("After decryption plaintext:")
-printlistinHEX(ciphertextmatrix)
+printlistinHEX(decryptedtextmatrix)
 # DECRYPTION_CODE_END #################################################
 
 
