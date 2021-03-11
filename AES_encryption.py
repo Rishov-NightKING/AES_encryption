@@ -90,7 +90,7 @@ def operationOnPlainText(text):
     if len(text) % 16 != 0:
         temp = 16 - len(text) % 16
         for i in range(temp):
-            text += " "
+            text += " "  # pad spaces
     # handle text blocks
     return text
 
@@ -103,6 +103,7 @@ def shiftRows(s):
 
 
 def inverseShiftRows(s):
+    # first row doesnt change
     s[0][1], s[1][1], s[2][1], s[3][1] = s[3][1], s[0][1], s[1][1], s[2][1]
     s[0][2], s[1][2], s[2][2], s[3][2] = s[2][2], s[3][2], s[0][2], s[1][2]
     s[0][3], s[1][3], s[2][3], s[3][3] = s[1][3], s[2][3], s[3][3], s[0][3]
@@ -115,7 +116,6 @@ def circularleftshift(li):
 
 
 def printlistinHEX(li):
-    print("[ In HEX ]:")
     count = 0
     for i in li:
         for j in i:
@@ -123,7 +123,30 @@ def printlistinHEX(li):
             count += 1
             if count % 16 == 0:
                 print()
+
+
+def printTextBlocks(textblocks):
+    print("[ In HEX ]:")
+    for i in range(len(textblocks)):
+        printlistinHEX(textblocks[i])
     print()
+
+
+def decipherText(li):
+    strtext = ""
+    for i in li:
+        for j in i:
+            strtext += chr(j)
+            #print(chr(j))
+    return strtext
+
+
+def convertToText(texts):
+    decstr = ""
+    for i in range(len(texts)):
+        decstr += decipherText(texts[i])
+
+    print(decstr + "  [ In ASCII ]\n\n")
 
 
 def byteSubstitution(li):
@@ -151,12 +174,6 @@ def updateRoundConstant():
         round_constant[0] = 2 * round_constant[0] ^ 283  # 11B(hex)
 
 
-# AES_modulus = BitVector(bitstring='100011011')
-#
-# bv1 = BitVector(hexstring="02")
-# bv2 = BitVector(hexstring="63")
-# bv3 = bv1.gf_multiply_modular(bv2, AES_modulus, 8)
-
 def mixColumn(matrix):
     temp = [[0, 0, 0, 0] for i in range(4)]
     for i in range(4):
@@ -173,8 +190,42 @@ def inverseMixColumn(matrix):
         for j in range(4):
             for k in range(4):
                 AES_modulus = BitVector(bitstring='100011011')
-                temp[j][i] ^= InvMixer[i][k].gf_multiply_modular(BitVector(intVal=matrix[j][k]), AES_modulus, 8).int_val()
+                temp[j][i] ^= InvMixer[i][k].gf_multiply_modular(BitVector(intVal=matrix[j][k]), AES_modulus,
+                                                                 8).int_val()
     return temp
+
+
+# 16 character PLAINTEXT MATRIX GENERATE
+def sixteenCharacterPlaintextMatrixGenerator(plaintext):
+    j = 0
+    count = 0
+    temp = [[] for i in range(4)]
+    for i in plaintext:
+        temp[j].append(ord(i))
+        count += 1
+        if count % 4 == 0:
+            j += 1
+    # print("Input plaintext hex:")
+    # printlistinHEX(textmatrix)
+    return temp
+
+
+# KEY_MATRIX_GENERATE
+def keymatrixgenerate(modifiedkey):
+    j = 0
+    count = 0
+    temps = [[] for i in range(4)]
+    for i in modifiedkey:
+        # s.append(i)
+        # ord() gives ascii value
+        temps[j].append(ord(i))
+        count += 1
+        if count % 4 == 0:
+            j += 1
+
+    # printlistinHEX(words)
+    # end_for_loop
+    return temps
 
 
 def AES_Schedule():
@@ -203,6 +254,7 @@ def AES_Schedule():
         words.append(fourthword)
 
     # end_for_loop
+
 
 def Encryption(textmatrix):
     # INITIALIZE ADD_ROUND_KEY(PLAINTEXT XOR ROUND_KEY_0)
@@ -283,47 +335,37 @@ def Decryption(ciphertextmatrix):
 
     return ciphertextmatrix
 
+
 # CODE MAIN FUNCTION
 
 words = [[] for i in range(4)]
 textmatrix = [[] for i in range(4)]
-j = 0
-count = 0
+initialtextblocks = []
+textblocks = []
+decryptedtextblocks = []
 
-# key = input("Enter Key: ")
-key = "Thats my Kung Fu"
+key = input("Enter Key: ")
+#key = "BUET CSE16 Batch"
 modifiedkey = operationOnKey(key)
 print("Key in English:\n" + modifiedkey + " [ In ASCII ]")
-
-# KEY_MATRIX_GENERATE
-for i in modifiedkey:
-    # s.append(i)
-    # ord() gives ascii value
-    words[j].append(ord(i))
-    count += 1
-    if count % 4 == 0:
-        j += 1
-
+print("[ In HEX ]:")
+words = keymatrixgenerate(modifiedkey)
 printlistinHEX(words)
-# end_for_loop
+print()
+# print(decipherText(words))
 
-# plaintext = input("Enter plaintext: ")
-plaintext = "Two One Nine Two"
+plaintext = input("Enter plaintext: ")
+#plaintext = "WillGraduateSoon"
 plaintext = operationOnPlainText(plaintext)
 print("Plaintext in English:\n" + plaintext + " [ In ASCII ]")
 
-# PLAINTEXT MATRIX GENERATE
-j = 0
-count = 0
-for i in plaintext:
-    textmatrix[j].append(ord(i))
-    count += 1
-    if count % 4 == 0:
-        j += 1
-print("Input plaintext hex:")
-printlistinHEX(textmatrix)
-# end
+# TEXT BLOCK MATRIX GENERATE
+for i in range(0, len(plaintext), 16):
+    textmatrix = sixteenCharacterPlaintextMatrixGenerator(plaintext[i:i + 16])
+    textblocks.append(textmatrix)
 
+initialtextblocks = textblocks.copy()
+printTextBlocks(initialtextblocks)
 
 aes_start_time = time.time()
 
@@ -342,27 +384,31 @@ aes_time = aes_end_time - aes_start_time
 
 encryption_start_time = time.time()
 
-ciphertextmatrix = Encryption(textmatrix.copy())
+for i in range(len(textblocks)):
+    textblocks[i] = Encryption(textblocks[i].copy())
 
 encryption_end_time = time.time()
 encryption_time = encryption_end_time - encryption_start_time
 
-print("CipherText: ")  # stateMatrix is our cipher
-printlistinHEX(ciphertextmatrix)
+print("CipherText: ")
+printTextBlocks(textblocks)  # textblocks holds the encrypted cipher text
+convertToText(textblocks.copy())
 # ENCRYPTION_CODE_END #################################################
 
 
 # DECRYPTION_CODE_START #################################################
 
 decryption_start_time = time.time()
-
-decryptedtextmatrix = Decryption(ciphertextmatrix.copy())
+decryptedtextblocks = textblocks.copy()
+for i in range(len(textblocks)):
+    decryptedtextblocks[i] = Decryption(decryptedtextblocks[i])
 
 decryption_end_time = time.time()
 decryption_time = decryption_end_time - decryption_start_time
 
 print("After decryption plaintext:")
-printlistinHEX(decryptedtextmatrix)
+printTextBlocks(decryptedtextblocks)
+convertToText(decryptedtextblocks.copy())
 # DECRYPTION_CODE_END #################################################
 
 
@@ -371,18 +417,3 @@ print("Execution Time")
 print("Key Scheduling: {} seconds".format(aes_time))
 print("Encryption Time: {} seconds".format(encryption_time))
 print("Decryption Time:: {} seconds".format(decryption_time))
-
-# b = BitVector(hexstring="63")
-# int_val = b.intValue()
-# print(int_val)
-# s = Sbox[int_val]
-# print(s)
-# s = BitVector(intVal=s, size=8)
-# print(s)
-#
-# AES_modulus = BitVector(bitstring='100011011')
-#
-# bv1 = BitVector(hexstring="02")
-# bv2 = BitVector(hexstring="63")
-# bv3 = bv1.gf_multiply_modular(bv2, AES_modulus, 8)
-# print(bv3)
