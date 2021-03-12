@@ -210,6 +210,17 @@ def sixteenCharacterPlaintextMatrixGenerator(plaintext):
     return temp
 
 
+def sixteenElementfilematrixGenerator(list):
+    j = 0
+    count = 0
+    temp = [[] for i in range(4)]
+    for i in list:
+        temp[j].append(i)
+        count += 1
+        if count % 4 == 0:
+            j += 1
+    return temp
+
 # KEY_MATRIX_GENERATE
 def keymatrixgenerate(modifiedkey):
     j = 0
@@ -344,8 +355,8 @@ initialtextblocks = []
 textblocks = []
 decryptedtextblocks = []
 
-key = input("Enter Key: ")
-#key = "BUET CSE16 Batch"
+#key = input("Enter Key: ")
+key = "BUET CSE16 Batch"
 modifiedkey = operationOnKey(key)
 print("Key in English:\n" + modifiedkey + " [ In ASCII ]")
 print("[ In HEX ]:")
@@ -354,15 +365,39 @@ printlistinHEX(words)
 print()
 # print(decipherText(words))
 
-plaintext = input("Enter plaintext: ")
-#plaintext = "WillGraduateSoon"
-plaintext = operationOnPlainText(plaintext)
-print("Plaintext in English:\n" + plaintext + " [ In ASCII ]")
+option = int(input("What do u want to encrypt-decrypt?\n1. Plaintext   2.File\n"))
+if option == 1:
+    plaintext = "WillGraduateSoon"
+    # plaintext = input("Enter plaintext: ")
+    plaintext = operationOnPlainText(plaintext)
+    print("Plaintext in English:\n" + plaintext + " [ In ASCII ]")
 
-# TEXT BLOCK MATRIX GENERATE
-for i in range(0, len(plaintext), 16):
-    textmatrix = sixteenCharacterPlaintextMatrixGenerator(plaintext[i:i + 16])
-    textblocks.append(textmatrix)
+    # TEXT BLOCK MATRIX GENERATE
+    for i in range(0, len(plaintext), 16):
+        textmatrix = sixteenCharacterPlaintextMatrixGenerator(plaintext[i:i + 16])
+        textblocks.append(textmatrix)
+elif option == 2:
+    a = []
+    #filename = input("Enter filename: ")
+    filename = "pic1.png"
+    with open(filename, 'rb') as f:
+        while 1:
+            byte_s = f.read(1)
+            if not byte_s:
+                break
+            byte = byte_s[0]
+            a.append(byte)
+    # padding
+    for i in range(16 - len(a) % 16):
+        a.append(20)
+
+    # FOR FILE TEXT BLOCK GENERATE
+    for i in range(0, len(a), 16):
+        textmatrix = sixteenElementfilematrixGenerator(a[i:i + 16])
+        textblocks.append(textmatrix)
+
+
+
 
 initialtextblocks = textblocks.copy()
 printTextBlocks(initialtextblocks)
@@ -393,6 +428,7 @@ encryption_time = encryption_end_time - encryption_start_time
 print("CipherText: ")
 printTextBlocks(textblocks)  # textblocks holds the encrypted cipher text
 convertToText(textblocks.copy())
+
 # ENCRYPTION_CODE_END #################################################
 
 
@@ -407,8 +443,13 @@ decryption_end_time = time.time()
 decryption_time = decryption_end_time - decryption_start_time
 
 print("After decryption plaintext:")
-printTextBlocks(decryptedtextblocks)
-convertToText(decryptedtextblocks.copy())
+if option == 1:
+    printTextBlocks(decryptedtextblocks)
+    convertToText(decryptedtextblocks.copy())
+elif option == 2:
+    printTextBlocks(decryptedtextblocks)
+    with open("decryptedFile", 'wb') as f:
+        f.write(bytes(a))
 # DECRYPTION_CODE_END #################################################
 
 
