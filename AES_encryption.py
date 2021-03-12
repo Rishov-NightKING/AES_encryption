@@ -367,8 +367,9 @@ print()
 
 option = int(input("What do u want to encrypt-decrypt?\n1. Plaintext   2.File\n"))
 if option == 1:
-    plaintext = "WillGraduateSoon"
-    # plaintext = input("Enter plaintext: ")
+    #plaintext = "WillGraduateSoon"
+    plaintext = input("Enter plaintext: ")
+    #plaintext = operationOnPlainText(plaintext)
     plaintext = operationOnPlainText(plaintext)
     print("Plaintext in English:\n" + plaintext + " [ In ASCII ]")
 
@@ -378,8 +379,8 @@ if option == 1:
         textblocks.append(textmatrix)
 elif option == 2:
     a = []
-    #filename = input("Enter filename: ")
-    filename = "pic1.png"
+    filename = input("Enter filename: ")
+    #filename = "pic1.png"
     with open(filename, 'rb') as f:
         while 1:
             byte_s = f.read(1)
