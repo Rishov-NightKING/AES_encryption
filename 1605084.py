@@ -116,18 +116,18 @@ def operationOnPlainText(text):
     return text
 
 
-def shiftRows(s):
+def shiftRows(matrix):
     # first row doesnt change
-    s[0][1], s[1][1], s[2][1], s[3][1] = s[1][1], s[2][1], s[3][1], s[0][1]
-    s[0][2], s[1][2], s[2][2], s[3][2] = s[2][2], s[3][2], s[0][2], s[1][2]
-    s[0][3], s[1][3], s[2][3], s[3][3] = s[3][3], s[0][3], s[1][3], s[2][3]
+    matrix[0][1], matrix[1][1], matrix[2][1], matrix[3][1] = matrix[1][1], matrix[2][1], matrix[3][1], matrix[0][1]
+    matrix[0][2], matrix[1][2], matrix[2][2], matrix[3][2] = matrix[2][2], matrix[3][2], matrix[0][2], matrix[1][2]
+    matrix[0][3], matrix[1][3], matrix[2][3], matrix[3][3] = matrix[3][3], matrix[0][3], matrix[1][3], matrix[2][3]
 
 
-def inverseShiftRows(s):
+def inverseShiftRows(matrix):
     # first row doesnt change
-    s[0][1], s[1][1], s[2][1], s[3][1] = s[3][1], s[0][1], s[1][1], s[2][1]
-    s[0][2], s[1][2], s[2][2], s[3][2] = s[2][2], s[3][2], s[0][2], s[1][2]
-    s[0][3], s[1][3], s[2][3], s[3][3] = s[1][3], s[2][3], s[3][3], s[0][3]
+    matrix[0][1], matrix[1][1], matrix[2][1], matrix[3][1] = matrix[3][1], matrix[0][1], matrix[1][1], matrix[2][1]
+    matrix[0][2], matrix[1][2], matrix[2][2], matrix[3][2] = matrix[2][2], matrix[3][2], matrix[0][2], matrix[1][2]
+    matrix[0][3], matrix[1][3], matrix[2][3], matrix[3][3] = matrix[1][3], matrix[2][3], matrix[3][3], matrix[0][3]
 
 
 def circularleftshift(li):
@@ -393,7 +393,6 @@ option = int(input("What do u want to encrypt-decrypt?\n1. Plaintext   2. File\n
 if option == 1:
     plaintext = "WillGraduateSoon"
     # plaintext = input("Enter plaintext: ")
-    # plaintext = operationOnPlainText(plaintext)
     plaintext = operationOnPlainText(plaintext)
     print("Plaintext in English:\n" + plaintext + " [ In ASCII ]")
 
@@ -464,14 +463,23 @@ for i in range(len(textblocks)):
 decryption_end_time = time.time()
 decryption_time = decryption_end_time - decryption_start_time
 
-print("After decryption plaintext:")
+b = []
+for list in decryptedtextblocks:
+    for j in list:
+        for k in j:
+            b.append(k)
+
+
+
 if option == 1:
+    print("After decryption plaintext:")
     printTextBlocks(decryptedtextblocks)
     convertToText(decryptedtextblocks.copy())
 elif option == 2:
+    print("Decrypted file generated.")
     printTextBlocks(decryptedtextblocks)
     with open("decryptedFile", 'wb') as f:
-        f.write(bytes(a))
+        f.write(bytes(b))
 # DECRYPTION_CODE_END #################################################
 
 
