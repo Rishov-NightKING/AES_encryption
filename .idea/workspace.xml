@@ -4,6 +4,7 @@
     <list default="true" id="38b4f244-322c-456e-a28b-94141c0a5664" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AES_encryption.py" beforeDir="false" afterPath="$PROJECT_DIR$/AES_encryption.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demop.py" beforeDir="false" afterPath="$PROJECT_DIR$/demop.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,9 +31,31 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
-  <component name="RunManager" selected="Python.AES_encryption">
+  <component name="RunManager" selected="Python.1605084">
+    <configuration name="1605084" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="AES_encryption" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="$USER_HOME$/.conda/envs/AES_encryption/bin/python" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/1605084.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="AES_encryption" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="AES_encryption" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -123,8 +146,9 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.AES_encryption" />
+        <item itemvalue="Python.1605084" />
         <item itemvalue="Python.demop" />
+        <item itemvalue="Python.AES_encryption" />
         <item itemvalue="Python.demo" />
       </list>
     </recent_temporary>
@@ -142,7 +166,9 @@
       <workItem from="1615211934765" duration="640000" />
       <workItem from="1615215652334" duration="26358000" />
       <workItem from="1615347515145" duration="20383000" />
-      <workItem from="1615559191157" duration="9695000" />
+      <workItem from="1615559191157" duration="11482000" />
+      <workItem from="1615663394504" duration="519000" />
+      <workItem from="1615664035888" duration="3251000" />
     </task>
     <servers />
   </component>
@@ -162,38 +188,39 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="458" y="201" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1440.900@0.0.1440.900" timestamp="1615505516129" />
-    <state width="1398" height="171" key="GridCell.Tab.0.bottom" timestamp="1615573451320">
+    <state width="1398" height="227" key="GridCell.Tab.0.bottom" timestamp="1615667315730">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="171" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1615573451320" />
-    <state width="1398" height="171" key="GridCell.Tab.0.center" timestamp="1615573451319">
+    <state width="1398" height="227" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1615667315730" />
+    <state width="1398" height="227" key="GridCell.Tab.0.center" timestamp="1615667315728">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="171" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1615573451319" />
-    <state width="1398" height="171" key="GridCell.Tab.0.left" timestamp="1615573451319">
+    <state width="1398" height="227" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1615667315728" />
+    <state width="1398" height="227" key="GridCell.Tab.0.left" timestamp="1615667315728">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="171" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1615573451319" />
-    <state width="1398" height="171" key="GridCell.Tab.0.right" timestamp="1615573451320">
+    <state width="1398" height="227" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1615667315728" />
+    <state width="1398" height="227" key="GridCell.Tab.0.right" timestamp="1615667315729">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="171" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1615573451320" />
-    <state x="229" y="86" key="SettingsEditor" timestamp="1615216683177">
+    <state width="1398" height="227" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1615667315729" />
+    <state x="229" y="86" key="SettingsEditor" timestamp="1615664165893">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="229" y="86" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1615216683177" />
-    <state x="397" y="279" key="com.intellij.ide.util.TipDialog" timestamp="1615559191706">
+    <state x="229" y="86" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1615664165893" />
+    <state x="397" y="279" key="com.intellij.ide.util.TipDialog" timestamp="1615664038035">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="397" y="279" key="com.intellij.ide.util.TipDialog/0.0.1440.900@0.0.1440.900" timestamp="1615559191706" />
+    <state x="397" y="279" key="com.intellij.ide.util.TipDialog/0.0.1440.900@0.0.1440.900" timestamp="1615664038035" />
     <state x="385" y="196" width="670" height="676" key="search.everywhere.popup" timestamp="1615564900245">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="385" y="196" width="670" height="676" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1615564900245" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/AES_encryption$AES_encryption.coverage" NAME="AES_encryption Coverage Results" MODIFIED="1615573451304" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/AES_encryption$AES_encryption.coverage" NAME="AES_encryption Coverage Results" MODIFIED="1615588878270" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/AES_encryption$1605084.coverage" NAME="1605084 Coverage Results" MODIFIED="1615667315719" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/AES_encryption$demo.coverage" NAME="demo Coverage Results" MODIFIED="1615504977474" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/AES_encryption$demop.coverage" NAME="demop Coverage Results" MODIFIED="1615571882144" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/AES_encryption$demop.coverage" NAME="demop Coverage Results" MODIFIED="1615667031258" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
